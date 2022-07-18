@@ -2,13 +2,13 @@ class Sorts:
     def __init__(self) -> None:
         pass
 
-    def merge_sort(self, unsorted_list):
-        if len(unsorted_list) <= 1:
-            return
+    def merge_sort(self, values):
+        if len(values) <= 1:
+            return values
         # divide: find mid point of list and divide into sublists
-        midpoint = len(unsorted_list) // 2
-        left_half = unsorted_list[:midpoint]
-        right_half = unsorted_list[midpoint:]
+        midpoint = len(values) // 2
+        left_half = values[:midpoint]
+        right_half = values[midpoint:]
 
         # conquer: recursively sort sublists in ascending order
         self.merge_sort(left_half)
@@ -18,26 +18,47 @@ class Sorts:
         i = j = k = 0
         while i < len(left_half) and j < len(right_half):
             if left_half[i] < right_half[j]:
-                unsorted_list[k] = left_half[i]
+                values[k] = left_half[i]
                 i += 1
             else:
-                unsorted_list[k] = right_half[j]
+                values[k] = right_half[j]
                 j += 1
             k += 1
 
         while i < len(left_half):
-            unsorted_list[k] = left_half[i]
+            values[k] = left_half[i]
             i += 1
             k += 1
 
         while j < len(right_half):
-            unsorted_list[k] = right_half[j]
+            values[k] = right_half[j]
             j += 1
             k += 1
+        return values
+
+    def quick_sort(self, values):
+        if len(values) <= 1:
+            return values
+
+        values_less_than_pivot = []
+        values_greater_than_pivot = []
+        pivot = values[0]
+
+        for value in values[1:]:
+            if value <= pivot:
+                values_less_than_pivot.append(value)
+            else:
+                values_greater_than_pivot.append(value)
+
+        return (
+            self.quick_sort(values_less_than_pivot)
+            + [pivot]
+            + self.quick_sort(values_greater_than_pivot)
+        )
 
 
 s = Sorts()
 list_to_sort = [23, 1, 55, 99, 203, 2, 5, 34]
-s.merge_sort(list_to_sort)
+sorted_list = s.quick_sort(list_to_sort)
 
-print(list_to_sort)
+print(sorted_list)
