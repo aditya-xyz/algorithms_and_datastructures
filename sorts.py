@@ -1,6 +1,3 @@
-from linkedlist import LinkedList
-
-
 class Sorts:
     def __init__(self) -> None:
         pass
@@ -40,7 +37,7 @@ class Sorts:
 
 
 s = Sorts()
-list_to_sort = LinkedList([23, 1, 55, 99, 203, 2, 5, 34])
-s.merge_sort_linkedlist(list_to_sort)
+list_to_sort = [23, 1, 55, 99, 203, 2, 5, 34]
+s.merge_sort(list_to_sort)
 
 print(list_to_sort)
